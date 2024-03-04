@@ -11,9 +11,6 @@ import java.util.Optional;
 @Repository
 public interface ICustomerRepository extends JpaRepository<Customer, Long> {
     Optional<Customer> findCustomerByEmail(String email);
-
-//    List<Customer> findAllByUser_Unlock(boolean user_unlock);
-
-    List<User> findAllByUser_Unlock(boolean user_unlock);
+    List<Customer> findAllByUser_Unlock(boolean user_unlock);
     Customer findByUser_Id(Long id);
 }

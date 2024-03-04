@@ -64,16 +64,15 @@ public class CustomerRestController {
         customerService.save(customer);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-//    @PutMapping("/lock/{id}")
-//    public ResponseEntity<?> ChangeLock(@PathVariable Long id, @RequestBody LockStatusReqDTO lockStatusReqDTO) {
-//        User user = userService.findById(lockStatusReqDTO.getUserId()).get();
-//        user.setUnlock(false);
-//        userService.save(user);
-//        Customer customer = customerService.findById(id).get();
-//        customer.setUser(user);
-//        customerService.save(customer);
-//
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
+    @PutMapping("/lock/{id}")
+    public ResponseEntity<?> ChangeLock(@PathVariable Long id, @RequestBody LockStatusReqDTO lockStatusReqDTO) {
+        User user = userService.findById(lockStatusReqDTO.getUserId()).get();
+        user.setUnlock(false);
+        userService.save(user);
+        Customer customer = customerService.findById(id).get();
+        customer.setUser(user);
+        customerService.save(customer);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

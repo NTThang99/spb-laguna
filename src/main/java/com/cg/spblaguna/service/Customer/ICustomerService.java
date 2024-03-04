@@ -1,6 +1,7 @@
 package com.cg.spblaguna.service.Customer;
 
 import com.cg.spblaguna.model.Customer;
+import com.cg.spblaguna.model.User;
 import com.cg.spblaguna.model.dto.req.CustomerReqDTO;
 import com.cg.spblaguna.model.dto.req.EmailReqDTO;
 import com.cg.spblaguna.model.dto.req.ForgotPassword;
