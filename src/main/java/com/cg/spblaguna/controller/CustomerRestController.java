@@ -21,14 +21,17 @@ import java.util.List;
 public class CustomerRestController {
     @Autowired
     private ICustomerService customerService;
+
     @Autowired
     private UserService userService;
 
 
 
-//Viet API customer
-    //nnnn
-    //mmm
+
+//Viet API customeraaaaaaaaaaaaaaaaaaaaaa
+    //aaaaaaaaa
+
+
     @GetMapping
     public ResponseEntity<?> getAll() {
         List<Customer> customerList = customerService.findAllByUser_Unlock(true);
