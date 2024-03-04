@@ -117,7 +117,6 @@ public class UserRestController {
         } catch (AuthenticationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Mật khẩu không đúng. Vui lòng nhập lại.");
         }
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtTokenForUser(authentication);
         RoomUserDetails roomUserDetails = (RoomUserDetails) authentication.getPrincipal();
@@ -134,17 +133,15 @@ public class UserRestController {
                     jwt,
                     roles
             );
-
             ResponseCookie springCookie = ResponseCookie.from("JWT", jwt)
                     .httpOnly(false)
                     .secure(false)
                     .sameSite("None")
                     .path("/")
                     .maxAge(60 * 1000)
-//                    .domain(".localhost")
-                    .domain("192.168.1.64")
+                    .domain(".localhost")
+//                    .domain("192.168.1.64")
                     .build();
-
             return ResponseEntity
                     .ok()
                     .header(HttpHeaders.SET_COOKIE, springCookie.toString())

@@ -45,4 +45,10 @@ public class Customer {
     @JoinColumn(name = "cardpayment_id", nullable = false)
     private CardPayment cardpayment;
     private int deleted = 0;
+    @OneToOne
+    @JoinColumn(name="user_id")
+    private User user;
+
+
+
 }
