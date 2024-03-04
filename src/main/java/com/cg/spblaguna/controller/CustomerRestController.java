@@ -26,7 +26,9 @@ public class CustomerRestController {
 
 
 
-
+//Viet API customer
+    //nnnn
+    //mmm
     @GetMapping
     public ResponseEntity<?> getAll() {
         List<Customer> customerList = customerService.findAllByUser_Unlock(true);
