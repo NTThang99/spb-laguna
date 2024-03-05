@@ -1,8 +1,13 @@
 package com.cg.spblaguna.model;
 
 import com.cg.spblaguna.model.dto.res.RoomResDTO;
+import com.cg.spblaguna.model.enumeration.ERoomType;
+import com.cg.spblaguna.model.enumeration.EStatusRoom;
+import com.cg.spblaguna.model.enumeration.EViewType;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.math.BigDecimal;
 
 @Entity
 @Getter
@@ -39,11 +44,11 @@ public class Room {
     private PerType perType;
 
     @Column(name = "price_perNight")
-    private Long pricePerNight;
+    private BigDecimal pricePerNight;
 
-    private Long acreage;
+    private BigDecimal acreage;
 
-    private Long sleep;
+    private Integer sleep;
 
 
     private String description;
@@ -56,7 +61,7 @@ public class Room {
 
     private Float rate;
 
-    public Room(String name, ERoomType roomType, EStatusRoom statusRoom, EViewType viewType, Long pricePerNight, Long acreage, Long sleep, String description, String utilitie, KindOfRoom kindOfRoom, Float rate, PerType perType) {
+    public Room(String name, ERoomType roomType, EStatusRoom statusRoom, EViewType viewType, BigDecimal pricePerNight, BigDecimal acreage, Integer sleep, String description, String utilitie, KindOfRoom kindOfRoom, Float rate, PerType perType) {
         this.name = name;
         this.roomType = roomType;
         this.statusRoom = statusRoom;
@@ -71,7 +76,7 @@ public class Room {
         this.perType = perType;
     }
 
-    public Room(String name, ERoomType roomType, EStatusRoom statusRoom, EViewType viewType, Long pricePerNight, Long acreage, Long sleep, String description, String utilitie, KindOfRoom kindOfRoom, PerType perType) {
+    public Room(String name, ERoomType roomType, EStatusRoom statusRoom, EViewType viewType, BigDecimal pricePerNight, BigDecimal acreage, Integer sleep, String description, String utilitie, KindOfRoom kindOfRoom, PerType perType) {
         this.name = name;
         this.roomType = roomType;
         this.statusRoom = statusRoom;

@@ -1,5 +1,6 @@
 package com.cg.spblaguna.model;
 
+import com.cg.spblaguna.model.enumeration.ERole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;

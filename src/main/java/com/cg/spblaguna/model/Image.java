@@ -1,23 +1,39 @@
 package com.cg.spblaguna.model;
 
+import com.cg.spblaguna.model.enumeration.EImageType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Table(name = "images")
 public class Image {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
+    private String fileName;
+    private String fileFolder;
+    private String fileUrl;
+    private String fileType;
+    private String cloudId;
 
-    private String url;
+    @Column(name = "image_type")
+    @Enumerated(EnumType.STRING)
+    private EImageType imageType;
+
+    @OneToOne
+    @JoinColumn(name = "receptionist_avatar")
+    private Receptionist receptionistAvatar;
 
     @ManyToOne
-    @JoinColumn(name = "room_id", nullable = false)
-    private Room room;
+    @JoinColumn(name = "room_image")
+    private Room roomImage;
 }
