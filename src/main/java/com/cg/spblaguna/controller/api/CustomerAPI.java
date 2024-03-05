@@ -19,10 +19,15 @@ import java.util.List;
 public class CustomerAPI {
     @Autowired
     private ICustomerService customerService;
+
     @Autowired
     private UserService userService;
 
 
+
+
+//Viet API customeraaaaaaaaaaaaaaaaaaaaaa
+    //aaaaaaaaa
 
 
     @GetMapping
