@@ -30,10 +30,10 @@ public class Image {
     private EImageType imageType;
 
     @OneToOne
-    @JoinColumn(name = "receptionist_avatar")
+    @JoinColumn(name = "receptionist_avatar", unique = false)
     private Receptionist receptionistAvatar;
 
     @ManyToOne
-    @JoinColumn(name = "room_image")
+    @JoinColumn(name = "room_image", unique = false)
     private Room roomImage;
 }
