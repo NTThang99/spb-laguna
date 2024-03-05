@@ -14,9 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:9001/api/rooms")
 @RequestMapping("/api/rooms")
-
-
 public class RoomAPI {
     @Autowired
     private RoomService roomService;
