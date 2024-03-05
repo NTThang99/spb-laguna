@@ -20,7 +20,7 @@ public class RoomReqDTO {
     private Long id;
 
     @NotBlank
-    @Length(min = 5, max = 10)
+    @Length(min = 5)
     private String name;
 
     private ERoomType roomType;

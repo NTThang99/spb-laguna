@@ -37,13 +37,15 @@ public class RoomService {
     public RoomResDTO save(RoomReqDTO roomReqDTO) {
         KindOfRoom kindOfRoom = kindOfRoomRespository.findById(roomReqDTO.getKingOfRoomId()).get();
         PerType perType = perTypeRepository.findById(roomReqDTO.getPerTypId()).get();
+
+        Room r = new Room(roomReqDTO.getName(),roomReqDTO.getRoomType()
+                ,roomReqDTO.getStatusRoom(),
+                roomReqDTO.getViewType(),roomReqDTO.getPricePerNight()
+                ,roomReqDTO.getAcreage(),
+                roomReqDTO.getSleep(),roomReqDTO.getDescription(),
+                roomReqDTO.getUtilitie(),kindOfRoom,perType);
         Room room = roomRepository
-                .save(new Room(roomReqDTO.getName(),roomReqDTO.getRoomType()
-                        ,roomReqDTO.getStatusRoom(),
-                        roomReqDTO.getViewType(),roomReqDTO.getPricePerNight()
-                        ,roomReqDTO.getAcreage(),
-                        roomReqDTO.getSleep(),roomReqDTO.getDescription(),
-                        roomReqDTO.getUtilitie(),kindOfRoom,perType));
+                .save(r);
         return room.toRoomResDto();
     }
 

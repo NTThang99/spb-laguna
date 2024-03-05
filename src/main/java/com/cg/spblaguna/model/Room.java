@@ -4,8 +4,10 @@ import com.cg.spblaguna.model.dto.res.RoomResDTO;
 import com.cg.spblaguna.model.enumeration.ERoomType;
 import com.cg.spblaguna.model.enumeration.EStatusRoom;
 import com.cg.spblaguna.model.enumeration.EViewType;
+import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 import java.math.BigDecimal;
 
@@ -56,6 +58,7 @@ public class Room {
 
 
     @Column(name = "utilitie", columnDefinition = "json", nullable = false)
+    @Type(JsonType.class)
     private String utilitie;
 
 
