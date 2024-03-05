@@ -1,5 +1,7 @@
 package com.cg.spblaguna.model;
 
+import com.cg.spblaguna.model.enumeration.EBookStatus;
+import com.cg.spblaguna.model.enumeration.EDepositedStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

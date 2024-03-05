@@ -1,5 +1,6 @@
 package com.cg.spblaguna.model;
 
+import com.cg.spblaguna.model.enumeration.EStatusUser;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,13 +35,6 @@ public class Customer {
 
     @Enumerated(EnumType.STRING)
     private EStatusUser statusUser;
-
-    @Enumerated(EnumType.STRING)
-    private ERole role;
-
-    @Column(nullable = false)
-    private String password;
-
     @OneToOne
     @JoinColumn(name = "cardpayment_id", nullable = false)
     private CardPayment cardpayment;
