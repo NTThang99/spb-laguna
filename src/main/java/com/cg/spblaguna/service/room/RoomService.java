@@ -1,14 +1,13 @@
 package com.cg.spblaguna.service.room;
 
+import com.cg.spblaguna.model.Image;
 import com.cg.spblaguna.model.KindOfRoom;
 import com.cg.spblaguna.model.PerType;
 import com.cg.spblaguna.model.Room;
 import com.cg.spblaguna.model.dto.req.RoomReqDTO;
 import com.cg.spblaguna.model.dto.res.RoomResDTO;
-import com.cg.spblaguna.repository.IKindOfRoomRespository;
-import com.cg.spblaguna.repository.IPerTypeRepository;
-import com.cg.spblaguna.repository.IRateRespository;
-import com.cg.spblaguna.repository.IRoomRepository;
+import com.cg.spblaguna.model.enumeration.EImageType;
+import com.cg.spblaguna.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +28,9 @@ public class RoomService {
     @Autowired
     private IRateRespository rateRespository;
 
+    @Autowired
+    private IImageRepository imageRepository;
+
     public List<RoomResDTO> getRooms() {
         List<Room> rooms = roomRepository.findAll();
         return rooms.stream().map(Room::toRoomResDto).collect(Collectors.toList());
@@ -37,13 +39,22 @@ public class RoomService {
     public RoomResDTO save(RoomReqDTO roomReqDTO) {
         KindOfRoom kindOfRoom = kindOfRoomRespository.findById(roomReqDTO.getKingOfRoomId()).get();
         PerType perType = perTypeRepository.findById(roomReqDTO.getPerTypId()).get();
+
+        Room r = new Room(roomReqDTO.getName(),roomReqDTO.getRoomType()
+                ,roomReqDTO.getStatusRoom(),
+                roomReqDTO.getViewType(),roomReqDTO.getPricePerNight()
+                ,roomReqDTO.getAcreage(),
+                roomReqDTO.getSleep(),roomReqDTO.getDescription(),
+                roomReqDTO.getUtilitie(),kindOfRoom,perType);
         Room room = roomRepository
-                .save(new Room(roomReqDTO.getName(),roomReqDTO.getRoomType()
-                        ,roomReqDTO.getStatusRoom(),
-                        roomReqDTO.getViewType(),roomReqDTO.getPricePerNight()
-                        ,roomReqDTO.getAcreage(),
-                        roomReqDTO.getSleep(),roomReqDTO.getDescription(),
-                        roomReqDTO.getUtilitie(),kindOfRoom,perType));
+                .save(r);
+
+        roomReqDTO.getImageIds().forEach(s -> {
+            Image image = imageRepository.findById(s).get();
+            image.setImageType(EImageType.ROOM);
+            image.setRoomImage(r);
+            imageRepository.save(image);
+        });
         return room.toRoomResDto();
     }
 
@@ -61,6 +72,9 @@ public class RoomService {
         room.setUtilitie(roomReqDTO.getUtilitie());
         room.setKingOfRoom(kindOfRoom);
         room.setPerType(perType);
+
+
+
         roomRepository.save(room);
         return room.toRoomResDto();
     }
