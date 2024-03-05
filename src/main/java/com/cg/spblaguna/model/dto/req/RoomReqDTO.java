@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -42,5 +43,7 @@ public class RoomReqDTO {
     private String description;
 
     private String utilitie;
+
+    List<String> imageIds;
 
 }
