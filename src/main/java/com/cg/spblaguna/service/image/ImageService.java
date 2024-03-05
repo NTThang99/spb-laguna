@@ -42,7 +42,7 @@ public class ImageService {
 
     }
 
-    public void deleteImage(String fileUrl) {
-        iImageRepository.deleteByFileUrl(fileUrl);
+    public void deleteImage(String imageID) {
+        iImageRepository.deleteById(imageID);
     }
 }

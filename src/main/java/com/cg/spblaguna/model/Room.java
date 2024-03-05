@@ -1,13 +1,18 @@
 package com.cg.spblaguna.model;
 
+import com.cg.spblaguna.model.dto.res.ImageResDTO;
 import com.cg.spblaguna.model.dto.res.RoomResDTO;
 import com.cg.spblaguna.model.enumeration.ERoomType;
 import com.cg.spblaguna.model.enumeration.EStatusRoom;
 import com.cg.spblaguna.model.enumeration.EViewType;
+import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -54,8 +59,13 @@ public class Room {
     private String description;
 
 
+    @OneToMany(mappedBy = "roomImage")
+    private List<Image> images;
+
+
 
     @Column(name = "utilitie", columnDefinition = "json", nullable = false)
+    @Type(JsonType.class)
     private String utilitie;
 
 
@@ -107,6 +117,20 @@ public class Room {
         roomResDTO.setSleep(sleep);
         roomResDTO.setDescription(description);
         roomResDTO.setUtilitie(utilitie);
+
+        List<ImageResDTO> imageResDTOS = this.getImages()
+                .stream()
+                .map(m -> {
+                    ImageResDTO imageResDTO = new ImageResDTO();
+                    imageResDTO.setId(m.getId());
+                    imageResDTO.setFileUrl(m.getFileUrl());
+                    return imageResDTO;
+                })
+                .collect(Collectors.toList());
+
+        roomResDTO.setImageResDTOS(imageResDTOS);
+
+
         return roomResDTO;
     }
 

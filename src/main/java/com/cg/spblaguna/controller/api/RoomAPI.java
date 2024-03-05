@@ -31,9 +31,17 @@ public class RoomAPI {
      * thuộc tính utilities kiểu chuỗi theo định dạng JSON
      * roomReqDTO:
      * {
-     *     "name": "kkk",
+     *     "name": "kkkaaa",
      *     "roomType": "SUPERIOR",
-     *     "utilities": "{'tv': true, 'wifi': true, 'minibar': false}"
+     *     "statusRoom": "PLACED",
+     *     "viewType": "GARDEN_VIEW",
+     *     "kingOfRoomId": 1,
+     *     "perTypId":1,
+     *     "pricePerNight": 200000.00,
+     *     "acreage": 100.00,
+     *     "sleep": 3,
+     *     "description": "aaaaaaa",
+     *     "utilitie": "{\"Shower\": true, \"Room Safe\": true, \"Mini Bar\": false}"
      * }
      * @param bindingResult
      * @return

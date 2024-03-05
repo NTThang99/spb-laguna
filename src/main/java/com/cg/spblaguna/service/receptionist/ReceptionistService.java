@@ -78,6 +78,10 @@ public class ReceptionistService implements IReceptionistService {
         return receptionistRepository.findAllByUser_Unlock(user_unlock);
     }
 
+    public List<Receptionist> findReceptionistsWithFilters(String receptionistName) {
+        return receptionistRepository.findReceptionistsWithFilters(receptionistName);
+    }
+
     @Override
     public Receptionist findByUser_Id(Long id) {
         return receptionistRepository.findByUser_Id(id);
