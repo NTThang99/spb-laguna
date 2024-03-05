@@ -15,10 +15,10 @@ public class CorsConfig implements WebMvcConfigurer {
 //                        "http://localhost:5173"
 //                )
                 // Nếu cấu hình theo allowedOriginPatterns coi chừng allowedOrigins thì nó sẽ bị conflict
-                .allowedOriginPatterns("*")
+                .allowedOrigins("*")
                 .allowedMethods("*")
                 .allowedHeaders("*")
-                .allowCredentials(true)
+//                .allowCredentials(true)
                 .maxAge(3600);
     }
 }
