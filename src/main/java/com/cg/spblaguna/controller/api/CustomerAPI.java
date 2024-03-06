@@ -1,12 +1,10 @@
 package com.cg.spblaguna.controller.api;
 
 import com.cg.spblaguna.model.Customer;
-import com.cg.spblaguna.model.User;
-import com.cg.spblaguna.model.dto.req.LockStatusReqDTO;
 import com.cg.spblaguna.model.dto.res.CustomerResDTO;
-import com.cg.spblaguna.service.customer.ICustomerService;
+import com.cg.spblaguna.model.enumeration.EStatusUser;
+import com.cg.spblaguna.service.customer.CustomerService;
 import com.cg.spblaguna.service.user.UserService;
-import com.cg.spblaguna.util.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +17,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class CustomerAPI {
     @Autowired
-    private ICustomerService customerService;
+    private CustomerService customerService;
 
     @Autowired
     private UserService userService;
@@ -62,15 +60,18 @@ public class CustomerAPI {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     @PatchMapping("/lock/{id}")
-    public ResponseEntity<?> changeLock(@PathVariable Long id, @RequestBody LockStatusReqDTO lockStatusReqDTO) {
-        User user = userService.findById(lockStatusReqDTO.getUserId()).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + lockStatusReqDTO.getUserId()));
-        user.setUnlock(false);
-        userService.save(user);
-        Customer customer = customerService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: " + id));
-        customer.setUser(user);
+    public ResponseEntity<?> lockCustomer(@PathVariable Long id) {
+        Customer customer = customerService.findByUser_Id(id);
+        customer.setStatusUser(EStatusUser.BLOCK);
         customerService.save(customer);
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
+    @PatchMapping("/open/{id}")
+    public ResponseEntity<?> openCustomer(@PathVariable Long id) {
+        Customer customer = customerService.findByUser_Id(id);
+        customer.setStatusUser(EStatusUser.ACTIVE);
+        customerService.save(customer);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

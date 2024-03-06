@@ -1,20 +1,14 @@
 package com.cg.spblaguna.controller.api;
 
 import com.cg.spblaguna.model.Receptionist;
-import com.cg.spblaguna.model.User;
-import com.cg.spblaguna.model.dto.req.LockStatusReqDTO;
 import com.cg.spblaguna.model.dto.req.ReceptionistReqDTO;
-import com.cg.spblaguna.model.dto.req.RoomReqDTO;
 import com.cg.spblaguna.model.enumeration.ELockStatus;
 import com.cg.spblaguna.service.image.ImageService;
 import com.cg.spblaguna.service.receptionist.ReceptionistService;
 import com.cg.spblaguna.service.user.IUserService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -56,13 +50,18 @@ public class ReceptionistAPI {
     }
 
     @PatchMapping("/lock/{id}")
-    public ResponseEntity<?> lockUser(@PathVariable Long id){
+    public ResponseEntity<?> lockReceptionist(@PathVariable Long id){
         Receptionist receptionist = receptionistService.findByUser_Id(id);
         receptionist.setLockStatus(ELockStatus.LOCK);
         receptionistService.save(receptionist);
         return new ResponseEntity<>(HttpStatus.OK);
-
-
+    }
+    @PatchMapping("/open/{id}")
+    public ResponseEntity<?> openReceptionist(@PathVariable Long id){
+        Receptionist receptionist = receptionistService.findByUser_Id(id);
+        receptionist.setLockStatus(ELockStatus.UNLOCK);
+        receptionistService.save(receptionist);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping

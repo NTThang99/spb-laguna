@@ -26,4 +26,6 @@ public class BookingAPI {
         List<Booking> bookingList = bookingService.findAll();
         return new ResponseEntity<>(bookingList, HttpStatus.OK);
     }
+
+
 }
