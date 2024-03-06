@@ -3,6 +3,7 @@ package com.cg.spblaguna.service.image;
 import com.cg.spblaguna.model.Image;
 import com.cg.spblaguna.model.Room;
 import com.cg.spblaguna.model.dto.req.ImageReqDTO;
+import com.cg.spblaguna.model.dto.res.ImageResDTO;
 import com.cg.spblaguna.model.enumeration.EImageType;
 import com.cg.spblaguna.repository.IImageRepository;
 import com.cg.spblaguna.util.UploadUtil;
@@ -25,11 +26,11 @@ public class ImageService {
     private IImageRepository iImageRepository;
 
 
-    public Image saveImage(ImageReqDTO imageReqDTO) throws IOException {
+    public ImageResDTO saveImage(MultipartFile fileImage) throws IOException {
         var file = new Image();
         iImageRepository.save(file);
 
-        var uploadResult = cloudinary.uploader().upload(imageReqDTO.getImage().getBytes(), uploadUtil.buildImageUpLoadParams(file));
+        var uploadResult = cloudinary.uploader().upload(fileImage.getBytes(), uploadUtil.buildImageUpLoadParams(file));
         String fileUrl = (String) uploadResult.get("secure_url");
         String fileFormat = (String) uploadResult.get("format");
         file.setFileType(fileFormat);
@@ -38,7 +39,9 @@ public class ImageService {
         file.setFileFolder(UploadUtil.IMAGE_UPLOAD_FOLDER);
         file.setCloudId(file.getFileFolder() + "/" + file.getId());
         iImageRepository.save(file);
-        return file;
+
+
+        return file.toImageResDTO();
 
     }
 

@@ -4,6 +4,8 @@ import com.cg.spblaguna.model.Image;
 import com.cg.spblaguna.model.dto.req.ImageReqDTO;
 import com.cg.spblaguna.service.image.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,8 +18,8 @@ public class ImageAPI {
     @Autowired
     private ImageService imageService;
     @PostMapping
-    public Image upload(ImageReqDTO imageReqDTO) throws IOException {
-    return imageService.saveImage(imageReqDTO);
+    public ResponseEntity<?> upload(@RequestParam MultipartFile file) throws IOException {
+        return new ResponseEntity<>(imageService.saveImage(file), HttpStatus.OK);
     }
     @DeleteMapping("{id}")
     public void delete(@PathVariable String id) {
