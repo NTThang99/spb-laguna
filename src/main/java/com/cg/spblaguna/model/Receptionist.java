@@ -44,6 +44,8 @@ public class Receptionist {
     private User user;
     @Enumerated(EnumType.STRING)
     private ELockStatus lockStatus;
+
+
     @Column(name = "receptionist_info", columnDefinition = "LONGTEXT")
     private String receptionistInfo;
 

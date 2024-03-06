@@ -13,4 +13,5 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 public class ImageReqDTO {
     private MultipartFile image;
+    private String name;
 }
