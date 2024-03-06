@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
@@ -19,6 +20,17 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+    private String country;
+
+    @Column(name = "zip_code")
+    private String zipCode;
+
+    private Long phone;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "create_at")
     private Timestamp createAt;
 
@@ -28,7 +40,7 @@ public class Booking {
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name = "check_out")
     private Timestamp checkOut;
 
-    private Long total;
+    private BigDecimal total;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "book_status")
@@ -44,4 +56,9 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "room_id", nullable = false)
    private Room room;
+
+    private Boolean reminderSent = false ;
+    @OneToOne
+    private Payment payment;
+    private String email;
 }

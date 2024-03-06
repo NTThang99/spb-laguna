@@ -17,9 +17,9 @@ import java.util.Date;
 public class ReceptionistResDTO {
     private Long id;
     private String receptionistName;
-    private Date dob;
+    private LocalDate dob;
     private String email;
-    private Long phone;
+    private String phone;
     private LocalDate createAt;
     private String avatarImg;
     private String receptionistInfo;

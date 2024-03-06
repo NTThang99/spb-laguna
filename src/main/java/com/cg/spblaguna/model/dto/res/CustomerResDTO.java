@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -13,11 +14,11 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerResDTO {
-    private Date dob;
+    private LocalDate dob;
     private String email;
     private String firstName;
     private String lastName;
-    private Long phone;
+    private String phone;
     private String address;
     private EStatusUser statusUser;
 }

@@ -23,7 +23,9 @@ public class Receptionist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date dob;
+
+    private LocalDate dob;
+
     @Column(unique = true, nullable = false)
     private String email;
     @NotEmpty(message = "Tên lễ tân không được trống")
@@ -31,23 +33,28 @@ public class Receptionist {
     private String receptionistName;
     @Column(name = "create_at")
     private LocalDate createAt;
-    private Long phone;
+
+    private String phone;
 
     private String address;
-    @Column(name = "avatar_img")
-    private String avatarImg;
+
 
     @Column(name = "deleted", columnDefinition = "int default 0")
     private int deleted = 0;
+
     @OneToOne
     @JoinColumn(name="user_id")
     private User user;
+
     @Enumerated(EnumType.STRING)
-    private ELockStatus lockStatus;
+    private ELockStatus lockStatus = ELockStatus.UNLOCK;
 
 
     @Column(name = "receptionist_info", columnDefinition = "LONGTEXT")
     private String receptionistInfo;
+
+
+
 
     public ReceptionistResDTO toReceptionistResDTO(){
         return new ReceptionistResDTO()
@@ -56,7 +63,6 @@ public class Receptionist {
                 .setEmail(email)
                 .setPhone(phone)
                 .setCreateAt(createAt)
-                .setAvatarImg(avatarImg)
                 .setReceptionistInfo(receptionistInfo);
 
     }
