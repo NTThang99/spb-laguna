@@ -50,28 +50,44 @@ public class ReceptionistService implements IReceptionistService {
 
     @Override
     public void create(ReceptionistReqDTO receptionistReqDTO) {
+        // Tạo mật khẩu ngẫu nhiên
         String password = RandomCode.generateRandomCode(6);
+
+        // Tạo đối tượng User mới
         User user = new User();
         user.setEmail(receptionistReqDTO.getEmail());
         user.setPassword(PasswordEncryptionUtil.encryptPassword(password));
         user.setRole(ERole.RECEPTIONIST);
         user.setUnlock(true);
-        iUserRepository.save(user);
-        String title="Chúc mừng! Tài khoản đã được tạo thành công";
-        String body= SendEmail.EmailRegisterDoctor(receptionistReqDTO.getReceptionistName(),password,receptionistReqDTO.getEmail());
-//        emailUtil.sendEmail(receptionistReqDTO.getEmail(),title,body);
 
+        // Lưu thông tin người dùng vào cơ sở dữ liệu
+        iUserRepository.save(user);
+
+        // Tạo tiêu đề và nội dung email
+        String title = "Chúc mừng! Tài khoản đã được tạo thành công";
+        String body = SendEmail.EmailRegisterDoctor(receptionistReqDTO.getReceptionistName(), password, receptionistReqDTO.getEmail());
+
+        // Tạo đối tượng Receptionist mới
         Receptionist receptionist = new Receptionist();
         receptionist.setDob(receptionistReqDTO.getDob());
         receptionist.setEmail(receptionistReqDTO.getEmail());
         receptionist.setReceptionistName(receptionistReqDTO.getReceptionistName());
         receptionist.setCreateAt(LocalDate.now());
         receptionist.setPhone(receptionistReqDTO.getPhone());
-        receptionist.setAvatarImg(receptionistReqDTO.getAvatarImg());
         receptionist.setUser(user);
-        receptionist.setLockStatus(ELockStatus.valueOf("UNLOCK"));
+
+        receptionist.setLockStatus(ELockStatus.UNLOCK);
+
+
+        // Lưu thông tin lễ tân vào cơ sở dữ liệu
         receptionistRepository.save(receptionist);
+
     }
+
+    public void update(ReceptionistReqDTO receptionistReqDTO){
+
+    }
+
 
     @Override
     public List<Receptionist> findAllByUser_Unlock(boolean user_unlock) {
@@ -85,5 +101,9 @@ public class ReceptionistService implements IReceptionistService {
     @Override
     public Receptionist findByUser_Id(Long id) {
         return receptionistRepository.findByUser_Id(id);
+    }
+
+    public void delete(Receptionist deleteReceptionist) {
+        receptionistRepository.delete(deleteReceptionist);
     }
 }

@@ -6,6 +6,7 @@ import com.cg.spblaguna.model.dto.req.LockStatusReqDTO;
 import com.cg.spblaguna.model.dto.res.CustomerResDTO;
 import com.cg.spblaguna.service.customer.ICustomerService;
 import com.cg.spblaguna.service.user.UserService;
+import com.cg.spblaguna.util.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +23,6 @@ public class CustomerAPI {
 
     @Autowired
     private UserService userService;
-
-
-
-
-//Viet API customeraaaaaaaaaaaaaaaaaaaaaa
-    //aaaaaaaaa
-
 
     @GetMapping
     public ResponseEntity<?> getAll() {
@@ -67,15 +61,16 @@ public class CustomerAPI {
         customerService.save(customer);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @PutMapping("/lock/{id}")
-    public ResponseEntity<?> ChangeLock(@PathVariable Long id, @RequestBody LockStatusReqDTO lockStatusReqDTO) {
-        User user = userService.findById(lockStatusReqDTO.getUserId()).get();
+    @PatchMapping("/lock/{id}")
+    public ResponseEntity<?> changeLock(@PathVariable Long id, @RequestBody LockStatusReqDTO lockStatusReqDTO) {
+        User user = userService.findById(lockStatusReqDTO.getUserId()).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + lockStatusReqDTO.getUserId()));
         user.setUnlock(false);
         userService.save(user);
-        Customer customer = customerService.findById(id).get();
+        Customer customer = customerService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: " + id));
         customer.setUser(user);
         customerService.save(customer);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok().build();
     }
+
 
 }

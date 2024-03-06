@@ -24,4 +24,5 @@ public class Rate {
     private Long accuracyPoint;
 
     private String comment;
+
 }

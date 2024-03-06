@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -82,6 +83,18 @@ public class RoomService {
     public void delete(Long id) {
         Room room = roomRepository.findById(id).get();
         roomRepository.delete(room);
+    }
 
+
+    public Optional<Room> findById(Long id) {
+        return roomRepository.findById(id);
+    }
+
+    public List<Room> findAll() {
+        return roomRepository.findAll();
+    }
+
+    public void change(Room room) {
+        roomRepository.save(room);
     }
 }

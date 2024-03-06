@@ -30,4 +30,6 @@ public class User {
     private ERole role;
     @Column(name="un_lock")
     private boolean unlock = true;
+    @OneToOne
+    private Image image;
 }
