@@ -1,10 +1,17 @@
 package com.cg.spblaguna.model.dto.res;
 
 import com.cg.spblaguna.model.*;
+import com.cg.spblaguna.model.dto.req.ImageReqDTO;
+import com.cg.spblaguna.model.enumeration.ERoomType;
+import com.cg.spblaguna.model.enumeration.EStatusRoom;
+import com.cg.spblaguna.model.enumeration.EViewType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,15 +34,16 @@ public class RoomResDTO {
 
     private PerType perType;
 
-    private Long pricePerNight;
+    private BigDecimal pricePerNight;
 
-    private Long acreage;
+    private BigDecimal acreage;
 
-    private Long sleep;
+    private Integer sleep;
 
     private String description;
 
     private String utilitie;
 
     private Rate rate;
+    private List<ImageResDTO> imageResDTOS;
 }

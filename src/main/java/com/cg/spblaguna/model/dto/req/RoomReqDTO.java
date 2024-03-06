@@ -1,13 +1,17 @@
 package com.cg.spblaguna.model.dto.req;
 
-import com.cg.spblaguna.model.*;
-import jakarta.validation.constraints.Min;
+import com.cg.spblaguna.model.enumeration.ERoomType;
+import com.cg.spblaguna.model.enumeration.EStatusRoom;
+import com.cg.spblaguna.model.enumeration.EViewType;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,7 +21,7 @@ public class RoomReqDTO {
     private Long id;
 
     @NotBlank
-    @Length(min = 5, max = 10)
+    @Length(min = 5)
     private String name;
 
     private ERoomType roomType;
@@ -30,14 +34,16 @@ public class RoomReqDTO {
 
     private Long perTypId;
 
-    private Long pricePerNight;
+    private BigDecimal pricePerNight;
 
-    private Long acreage;
+    private BigDecimal acreage;
 
-    private Long sleep;
+    private Integer sleep;
 
     private String description;
 
     private String utilitie;
+
+    List<String> imageIds;
 
 }

@@ -1,5 +1,6 @@
 package com.cg.spblaguna.model;
 
+import com.cg.spblaguna.model.enumeration.EMethod;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,4 +34,14 @@ public class Payment {
     private Long total;
 
     private Long transfer;
+
+    @Column(columnDefinition = "LONGTEXT")
+    private String fileName;
+    @Column(columnDefinition = "LONGTEXT")
+    private String fileType;
+    @Lob
+    @Column(name = "file", columnDefinition = "LONGBLOB")
+    private byte[] file;
+    @Column(name = "note", columnDefinition = "LONGTEXT")
+    private String note;
 }

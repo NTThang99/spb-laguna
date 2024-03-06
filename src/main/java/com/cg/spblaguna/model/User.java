@@ -1,5 +1,6 @@
 package com.cg.spblaguna.model;
 
+import com.cg.spblaguna.model.enumeration.ERole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -29,4 +30,6 @@ public class User {
     private ERole role;
     @Column(name="un_lock")
     private boolean unlock = true;
+    @OneToOne
+    private Image image;
 }
