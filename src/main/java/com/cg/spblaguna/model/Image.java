@@ -1,5 +1,6 @@
 package com.cg.spblaguna.model;
 
+import com.cg.spblaguna.model.dto.res.ImageResDTO;
 import com.cg.spblaguna.model.enumeration.EImageType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,4 +37,8 @@ public class Image {
     @ManyToOne
     @JoinColumn(name = "room_image", unique = false)
     private Room roomImage;
+
+    public ImageResDTO toImageResDTO(){
+        return new ImageResDTO(this.id, this.fileUrl);
+    }
 }

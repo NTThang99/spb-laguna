@@ -1,7 +1,12 @@
 package com.cg.spblaguna.controller.api;
 
+import com.cg.spblaguna.model.Room;
+import com.cg.spblaguna.model.User;
+import com.cg.spblaguna.model.dto.req.LockStatusReqDTO;
 import com.cg.spblaguna.model.dto.req.RoomReqDTO;
+import com.cg.spblaguna.model.enumeration.EStatusRoom;
 import com.cg.spblaguna.service.room.RoomService;
+import com.cg.spblaguna.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -19,6 +25,9 @@ import java.util.Map;
 public class RoomAPI {
     @Autowired
     private RoomService roomService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("")
     public ResponseEntity<?> showRooms() {
@@ -76,6 +85,29 @@ public class RoomAPI {
     public ResponseEntity<?> deleteRoom(@PathVariable Long id) {
         roomService.delete(id);
         return new ResponseEntity<>(new HashMap<>(), HttpStatus.OK);
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getRoom(@PathVariable Long id) {
+        Room room = roomService.findById(id).get();
+        return new ResponseEntity<>(room, HttpStatus.OK);
+    }
+
+    @PatchMapping("/lock/{id}")
+    public ResponseEntity<?> lockRoom(@PathVariable Long id){
+        Room room = roomService.findById(id).get();
+        room.setStatusRoom(EStatusRoom.NOT_READY);
+        roomService.change(room);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PatchMapping("/open/{id}")
+    public ResponseEntity<?> openRoom(@PathVariable Long id){
+        Room room = roomService.findById(id).get();
+        room.setStatusRoom(EStatusRoom.READY);
+        roomService.change(room);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

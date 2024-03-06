@@ -1,10 +1,9 @@
 package com.cg.spblaguna.controller.api;
 
 import com.cg.spblaguna.model.Customer;
-import com.cg.spblaguna.model.User;
-import com.cg.spblaguna.model.dto.req.LockStatusReqDTO;
 import com.cg.spblaguna.model.dto.res.CustomerResDTO;
-import com.cg.spblaguna.service.customer.ICustomerService;
+import com.cg.spblaguna.model.enumeration.EStatusUser;
+import com.cg.spblaguna.service.customer.CustomerService;
 import com.cg.spblaguna.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,17 +17,10 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class CustomerAPI {
     @Autowired
-    private ICustomerService customerService;
+    private CustomerService customerService;
 
     @Autowired
     private UserService userService;
-
-
-
-
-//Viet API customeraaaaaaaaaaaaaaaaaaaaaa
-    //aaaaaaaaa
-
 
     @GetMapping
     public ResponseEntity<?> getAll() {
@@ -67,15 +59,19 @@ public class CustomerAPI {
         customerService.save(customer);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @PutMapping("/lock/{id}")
-    public ResponseEntity<?> ChangeLock(@PathVariable Long id, @RequestBody LockStatusReqDTO lockStatusReqDTO) {
-        User user = userService.findById(lockStatusReqDTO.getUserId()).get();
-        user.setUnlock(false);
-        userService.save(user);
-        Customer customer = customerService.findById(id).get();
-        customer.setUser(user);
+    @PatchMapping("/lock/{id}")
+    public ResponseEntity<?> lockCustomer(@PathVariable Long id) {
+        Customer customer = customerService.findByUser_Id(id);
+        customer.setStatusUser(EStatusUser.BLOCK);
         customerService.save(customer);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PatchMapping("/open/{id}")
+    public ResponseEntity<?> openCustomer(@PathVariable Long id) {
+        Customer customer = customerService.findByUser_Id(id);
+        customer.setStatusUser(EStatusUser.ACTIVE);
+        customerService.save(customer);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
