@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/estatus")
+@RequestMapping("/api/statusroom")
 @CrossOrigin(origins = "*")
 public class EStatusAPI {
     @GetMapping

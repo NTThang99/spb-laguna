@@ -15,11 +15,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/erooms")
+@RequestMapping("/api/roomtype")
 @CrossOrigin(origins = "*")
-public class ERoomAPI {
+public class ERoomTypeAPI {
     @GetMapping
-    public ResponseEntity<?> getAllERooms() {
+    public ResponseEntity<?> getAllERoomType() {
         ERoomType [] eRoomTypes = ERoomType.values();
         List<ERoomResDTO> eRoomResDTOS = Arrays.stream(eRoomTypes)
                 .map(eRoomType -> new ERoomResDTO(eRoomType.toString(), eRoomType.getName()))
