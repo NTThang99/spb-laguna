@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/eviewtypes")
+@RequestMapping("/api/viewtype")
 @CrossOrigin(origins = "*")
 public class EViewTypeAPI {
     @GetMapping
